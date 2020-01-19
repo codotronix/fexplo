@@ -1,0 +1,31 @@
+{
+  "name": "fexplo",
+  "version": "1.0.0",
+  "description": "File system explorer",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codotronix/fexplo.git"
+  },
+  "keywords": [
+    "File",
+    "explorer",
+    "Folder",
+    "explorer",
+    "Directory",
+    "explorer"
+  ],
+  "author": "Suman Barick",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/codotronix/fexplo/issues"
+  },
+  "homepage": "https://github.com/codotronix/fexplo#readme",
+  "devDependencies": {
+    "electron": "^7.1.9"
+  }
+}
