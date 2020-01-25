@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
@@ -43,9 +43,18 @@ const useStyles = makeStyles(theme => ({
 
 const TopNav = props => {
     const classes = useStyles()
-    const {url, handleDirTraverse} = props
+    const {url, handleDirTraverse, handleChange} = props
+
     const handleNav = direction => {
         handleDirTraverse({direction})
+    }
+    const handleEnterUrl = e => {
+        if (e.keyCode === 13) {
+            handleDirTraverse({
+                direction: "NEW",
+                newUrl: e.target.value
+            })
+        }
     }
     return (
         <Box px={1} pt={2} className={classes.topNav}>
@@ -59,7 +68,10 @@ const TopNav = props => {
                 autocorrect="off" 
                 autocapitalize="off" 
                 spellcheck="false"
-                className={classes.navUrlBar} />
+                className={classes.navUrlBar} 
+                onKeyUp={e => handleEnterUrl(e)}
+                onChange={e => handleChange(e.target.value)}
+            />
         </Box>
     )
 }

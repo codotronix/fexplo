@@ -12,7 +12,7 @@ function App() {
     const [navHistory, setNavHistory] = useState([startPath])
     const [pathIndex, setPathIndex] = useState(0)       // which navHistory is current pwd
     const [ffList, setFFList] = useState(initFfList)    // list of files / folder in pwd
-    
+    const [navText, setNavText] = useState(navHistory[pathIndex])
     const handleDirTraverse = option => {
 
         switch (option.direction) {
@@ -26,6 +26,7 @@ function App() {
                 setNavHistory([...newHistory, newPath])
                 setFFList(FileManager.getDirContent(newPath))
                 setPathIndex(pathIndex + 1)
+                setNavText(newPath)
                 return
             }
 
@@ -37,6 +38,7 @@ function App() {
                 setNavHistory([...navHistory, newPath])
                 setFFList(FileManager.getDirContent(newPath))
                 setPathIndex(pathIndex + 1)
+                setNavText(newPath)
                 return
             }
             
@@ -47,6 +49,7 @@ function App() {
                     --pIndex;
                     setPathIndex(pIndex)
                     setFFList(FileManager.getDirContent(navHistory[pIndex]))
+                    setNavText(navHistory[pIndex])
                     return
                 }
             }
@@ -58,9 +61,21 @@ function App() {
                     ++pIndex;
                     setPathIndex(pIndex)
                     setFFList(FileManager.getDirContent(navHistory[pIndex]))
+                    setNavText(navHistory[pIndex])
                     return
                 }
-            }            
+            }
+            
+            // When a new url is typed in the nav text box
+            // Mandatory: option.direction and option.newUrl
+            case "NEW": {
+                if(FileManager.isDirectory(option.newUrl)) {
+                    setNavHistory([...navHistory, option.newUrl])
+                    setFFList(FileManager.getDirContent(option.newUrl))
+                    setPathIndex(pathIndex + 1)
+                }
+                return
+            }
         }
 
     }
@@ -68,7 +83,8 @@ function App() {
     return (
         <div className="App">
             <TopNav 
-                url={navHistory[pathIndex]} 
+                url={navText} 
+                handleChange={setNavText}
                 handleDirTraverse={handleDirTraverse}
             />
             <FFContainer 
