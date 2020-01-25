@@ -1,21 +1,66 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
-
-const os = window.require('os')
+import FFContainer from './components/ffContainer/FFContainer'
+import TopNav from './components/topNav/TopNav'
+import * as FileManager from './service/FileManager'
 
 function App() {
-  // fs.readdir(path.resolve('/'), (err, l) => console.log('File List = ', l))
-  // fs.readdir(path.resolve(__dirname), (err, l) => console.log('File List = ', l))
-  // console.log(fs)
-  // console.log(path.resolve(__dirname))
-  // console.log(global)
-  const homedir = os.homedir()
-  
+    // const ffList =  getDummyFList()
+    const homepath = FileManager.getHomePath()
+    const initFfList =  FileManager.getDirContent(homepath)
+    const [pwd, setPwd] = useState(homepath)
+    const [ffList, setFFList] = useState(initFfList)
 
-  return (
-    <div className="App">
-    </div>
-  );
+
+    return (
+        <div className="App">
+            <TopNav url={pwd}/>
+            <FFContainer list={ffList}/>
+        </div>
+    );
 }
 
 export default App;
+
+// function is_dir(path) {
+//     try {
+//         var stat = fs.lstatSync(path);
+//         return stat.isDirectory();
+//     } catch (e) {
+//         // lstatSync throws an error if path doesn't exist
+//         return false;
+//     }
+// }
+
+function getDummyFList() {
+    return [
+        {
+            type: "folder",
+            name: "Movies"
+        },
+        {
+            type: "folder",
+            name: "Songs"
+        },
+        {
+            type: "folder",
+            name: "Games"
+        },
+        {
+            type: "file",
+            name: "file 1"
+        },
+        {
+            type: "file",
+            name: "file 2"
+        },
+        {
+            type: "file",
+            name: "file 3"
+        },
+        {
+            type: "file",
+            name: "file 4"
+        }
+    ]
+}
