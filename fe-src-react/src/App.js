@@ -1,9 +1,7 @@
 import React from 'react';
 import './App.css';
-// const electron = window.require("electron")
-const fs = window.require("fs")
-const path = window.require('path')
-// const global = window.require('global')
+
+const os = window.require('os')
 
 function App() {
   // fs.readdir(path.resolve('/'), (err, l) => console.log('File List = ', l))
@@ -11,6 +9,9 @@ function App() {
   // console.log(fs)
   // console.log(path.resolve(__dirname))
   // console.log(global)
+  const homedir = os.homedir()
+  
+
   return (
     <div className="App">
     </div>
