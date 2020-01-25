@@ -10,6 +10,13 @@ const useStyles = makeStyles(theme => ({
     topNav: {
         display: "flex",
         alignItems: "center",
+        position: "fixed",
+        left: 0,
+        right: 0,
+        top: 0,
+        backgroundColor: "#fff",
+        zIndex: 99,
+        top: 0,
         "& svg": {
             marginRight: theme.spacing(.5),
             padding: `0 ${theme.spacing(1)}px`,
@@ -36,12 +43,15 @@ const useStyles = makeStyles(theme => ({
 
 const TopNav = props => {
     const classes = useStyles()
-    const {url} = props
+    const {url, handleDirTraverse} = props
+    const handleNav = direction => {
+        handleDirTraverse({direction})
+    }
     return (
-        <Box px={1} mt={2} className={classes.topNav}>
-            <KeyboardArrowLeftIcon />
-            <KeyboardArrowRightIcon />
-            <KeyboardArrowUpIcon />
+        <Box px={1} pt={2} className={classes.topNav}>
+            <KeyboardArrowLeftIcon onClick={() => handleNav("LEFT")} />
+            <KeyboardArrowRightIcon onClick={() => handleNav("RIGHT")} />
+            <KeyboardArrowUpIcon onClick={() => handleNav("UP")} />
             <TextField 
                 value={url}
                 variant="outlined" 

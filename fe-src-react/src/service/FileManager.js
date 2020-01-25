@@ -8,3 +8,22 @@ export const getDirContent = path => {
 }
 
 export const getHomePath = () => os.homedir()
+
+export const isDirectory = path => {
+    try {
+        var stat = fs.lstatSync(path);
+        return stat.isDirectory();
+    } catch (e) {
+        // lstatSync throws an error if path doesn't exist
+        return false;
+    }
+}
+
+export const joinPath = (...pathArr) => path.join(...pathArr)
+
+export const getParentPath = currentPath => {
+    let parts = currentPath.split(path.sep)
+    if(parts.length <= 1) return false
+    parts = parts.slice(0, parts.length-1)
+    return parts.join(path.sep)
+}

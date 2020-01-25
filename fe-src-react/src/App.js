@@ -6,31 +6,81 @@ import * as FileManager from './service/FileManager'
 
 function App() {
     // const ffList =  getDummyFList()
-    const homepath = FileManager.getHomePath()
-    const initFfList =  FileManager.getDirContent(homepath)
-    const [pwd, setPwd] = useState(homepath)
-    const [ffList, setFFList] = useState(initFfList)
+    const startPath = FileManager.getHomePath()
+    let initFfList = FileManager.getDirContent(startPath)
 
+    const [navHistory, setNavHistory] = useState([startPath])
+    const [pathIndex, setPathIndex] = useState(0)       // which navHistory is current pwd
+    const [ffList, setFFList] = useState(initFfList)    // list of files / folder in pwd
+    
+    const handleDirTraverse = option => {
+
+        switch (option.direction) {
+            // DOWN mens going down i.e. Opening a new folder
+            // And going down inside it
+            // Mandatory: option.direction and option.folderName
+            case "DOWN": {
+                let currentPath = navHistory[pathIndex]
+                let newPath = FileManager.joinPath(currentPath, option.folderName)
+                let newHistory = navHistory.slice(0, pathIndex+1)
+                setNavHistory([...newHistory, newPath])
+                setFFList(FileManager.getDirContent(newPath))
+                setPathIndex(pathIndex + 1)
+                return
+            }
+
+            // Going 1 directory up
+            case "UP": {
+                let currentPath = navHistory[pathIndex]
+                let newPath = FileManager.getParentPath(currentPath)
+                if(!newPath) return
+                setNavHistory([...navHistory, newPath])
+                setFFList(FileManager.getDirContent(newPath))
+                setPathIndex(pathIndex + 1)
+                return
+            }
+            
+            // Just going 1 step back in history array
+            case "LEFT": {
+                if (pathIndex > 0) {
+                    let pIndex = pathIndex
+                    --pIndex;
+                    setPathIndex(pIndex)
+                    setFFList(FileManager.getDirContent(navHistory[pIndex]))
+                    return
+                }
+            }
+
+            // Just going 1 step forward in history array
+            case "RIGHT": {
+                if (pathIndex < (navHistory.length - 1)) {
+                    let pIndex = pathIndex
+                    ++pIndex;
+                    setPathIndex(pIndex)
+                    setFFList(FileManager.getDirContent(navHistory[pIndex]))
+                    return
+                }
+            }            
+        }
+
+    }
 
     return (
         <div className="App">
-            <TopNav url={pwd}/>
-            <FFContainer list={ffList}/>
+            <TopNav 
+                url={navHistory[pathIndex]} 
+                handleDirTraverse={handleDirTraverse}
+            />
+            <FFContainer 
+                list={ffList} 
+                handleDirTraverse={handleDirTraverse}
+            />
         </div>
     );
 }
 
 export default App;
 
-// function is_dir(path) {
-//     try {
-//         var stat = fs.lstatSync(path);
-//         return stat.isDirectory();
-//     } catch (e) {
-//         // lstatSync throws an error if path doesn't exist
-//         return false;
-//     }
-// }
 
 function getDummyFList() {
     return [

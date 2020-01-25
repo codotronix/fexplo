@@ -5,11 +5,16 @@ import Box from '@material-ui/core/Box'
 import FFItem from '../ffItem/FFItem'
 
 const FFContainer = props => {
-    const { list } = props
+    const { list, handleDirTraverse } = props
+    
     return (
-        <Box px={2} py={1}>
+        <Box px={2} py={1} mt={5}>
             {
-                list && list.map( l => <FFItem item={l} key={l.name}/>)
+                list && list.map( l => 
+                    <FFItem item={l} key={l.name} 
+                        handleDirTraverse={handleDirTraverse}
+                    />
+                )
             }
         </Box>
     )

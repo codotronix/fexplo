@@ -8,7 +8,7 @@ import LinkIcon from '@material-ui/icons/Link';
 
 const useStyles = makeStyles(theme => ({
     ffItem: {
-        display: "flex",
+        display: "inline-flex",
         alignItems: "center",
         cursor: "pointer",
         "& svg": {
@@ -35,13 +35,30 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const FFItem = props => {
-    const {item} = props
+    const {item, handleDirTraverse} = props
     const classes = useStyles()
+
+    const tryToOpen = dirEntry => {
+        if(item.isDirectory()) {
+            handleDirTraverse({
+                direction: "DOWN",
+                folderName: dirEntry.name
+            })
+        }
+        else {
+            console.log("Currently cannot open ", dirEntry.name)
+        }
+    }
+    
 
     const itemClass = item.name[0] === '.' ? classes.dotItem : ''
 
     return (
-        <Box className={clsx(classes.ffItem, itemClass)} mt={1} title={item.name}> 
+        <Box mt={1}
+            className={clsx(classes.ffItem, itemClass)} 
+            title={item.name}
+            onDoubleClick={() => tryToOpen(item)}
+        > 
             { item.isDirectory() && <FolderOpenOutlinedIcon /> }
             { item.isFile() && <FileOutlineIcon /> }
             { item.isSymbolicLink() && <LinkIcon /> }
