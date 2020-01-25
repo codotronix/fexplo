@@ -38,7 +38,7 @@ const TopNav = props => {
     const classes = useStyles()
     const {url} = props
     return (
-        <Box px={1} my={1} className={classes.topNav}>
+        <Box px={1} mt={2} className={classes.topNav}>
             <KeyboardArrowLeftIcon />
             <KeyboardArrowRightIcon />
             <KeyboardArrowUpIcon />
