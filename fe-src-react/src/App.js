@@ -76,6 +76,14 @@ function App() {
                 }
                 return
             }
+
+            // To open a file
+            // Mandatory: option.direction and option.fileName
+            case "OPEN": {
+                let currentPath = navHistory[pathIndex]
+                let newPath = FileManager.joinPath(currentPath, option.fileName)
+                FileManager.openFileOSDefault(newPath)
+            }
         }
 
     }

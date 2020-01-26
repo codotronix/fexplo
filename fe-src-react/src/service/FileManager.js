@@ -1,6 +1,7 @@
 const os = window.require("os")
 const fs = window.require("fs")
 const path = window.require('path')
+const shell = window.require('electron').shell
 
 // It returns array of dirent (Directory Entry Objects)
 export const getDirContent = path => {
@@ -27,3 +28,5 @@ export const getParentPath = currentPath => {
     parts = parts.slice(0, parts.length-1)
     return parts.join(path.sep)
 }
+
+export const openFileOSDefault = file => shell.openItem(file)

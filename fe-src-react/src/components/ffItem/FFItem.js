@@ -11,7 +11,6 @@ const useStyles = makeStyles(theme => ({
         display: "inline-flex",
         alignItems: "center",
         cursor: "pointer",
-        
         "& svg": {
             margin: `0 ${theme.spacing(1)}px`
         },
@@ -53,7 +52,11 @@ const FFItem = props => {
             })
         }
         else {
-            console.log("Currently cannot open ", dirEntry.name)
+            // Try to open the file with OS defaults
+            handleDirTraverse({
+                direction: "OPEN",
+                fileName: dirEntry.name
+            })
         }
     }
     
