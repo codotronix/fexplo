@@ -11,8 +11,15 @@ const useStyles = makeStyles(theme => ({
         display: "inline-flex",
         alignItems: "center",
         cursor: "pointer",
+        
         "& svg": {
             margin: `0 ${theme.spacing(1)}px`
+        },
+        "&:hover": {
+            backgroundColor: '#eee'
+        },
+        "&:active": {
+            backgroundColor: '#ccc'
         }
     },
     fileIcon: {
