@@ -16,7 +16,8 @@ function createWindow () {
   })
 
   // and load the index.html of the app.
-  win.loadFile('./fe-src-react/build/index.html')
+  // win.loadFile('./ui/build/index.html')
+  win.loadURL('http://localhost:3000/')
   
   // Open the DevTools.
   win.webContents.openDevTools()
