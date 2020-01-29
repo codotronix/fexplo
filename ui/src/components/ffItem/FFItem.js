@@ -1,10 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux'
+import { actionOpenFolder } from '../../redux/actions'
+import { openFileOSDefault, joinPath } from '../../service/FileManager'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import FileOutlineIcon from '@material-ui/icons/DescriptionOutlined';
 import FolderOpenOutlinedIcon from '@material-ui/icons/FolderOpenOutlined';
 import LinkIcon from '@material-ui/icons/Link';
+
 
 const useStyles = makeStyles(theme => ({
     ffItem: {
@@ -40,28 +44,23 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
+
+
 const FFItem = props => {
-    const {item, handleDirTraverse} = props
+    const {item, openFolder, currentUrl} = props
     const classes = useStyles()
+
+    const itemClass = item.name[0] === '.' ? classes.dotItem : ''
 
     const tryToOpen = dirEntry => {
         if(item.isDirectory()) {
-            handleDirTraverse({
-                direction: "DOWN",
-                folderName: dirEntry.name
-            })
+            openFolder(dirEntry.name)
         }
         else {
-            // Try to open the file with OS defaults
-            handleDirTraverse({
-                direction: "OPEN",
-                fileName: dirEntry.name
-            })
+            const fullPath = joinPath(currentUrl, dirEntry.name)
+            openFileOSDefault(fullPath)
         }
     }
-    
-
-    const itemClass = item.name[0] === '.' ? classes.dotItem : ''
 
     return (
         <Box mt={1}
@@ -77,4 +76,12 @@ const FFItem = props => {
     )
 }
 
-export default FFItem
+const mapStateToProps = state => ({
+    currentUrl: state.fmr.url
+})
+
+const mapDispatchToProps = dispatch => ({
+    openFolder: folderName => dispatch(actionOpenFolder(folderName))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(FFItem)

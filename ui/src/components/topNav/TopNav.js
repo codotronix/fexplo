@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import { actionGoForward, actionGoBackward } from '../../redux/actions'
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
@@ -43,24 +44,21 @@ const useStyles = makeStyles(theme => ({
 
 const TopNav = props => {
     const classes = useStyles()
-    const {url, handleDirTraverse, handleChange} = props
+    const { url, goForward, goBackward } = props
 
-    const handleNav = direction => {
-        handleDirTraverse({direction})
-    }
     const handleEnterUrl = e => {
         if (e.keyCode === 13) {
-            handleDirTraverse({
-                direction: "NEW",
-                newUrl: e.target.value
-            })
+            // handleDirTraverse({
+            //     direction: "NEW",
+            //     newUrl: e.target.value
+            // })
         }
     }
     return (
         <Box px={1} pt={2} className={classes.topNav}>
-            <KeyboardArrowLeftIcon onClick={() => handleNav("LEFT")} />
-            <KeyboardArrowRightIcon onClick={() => handleNav("RIGHT")} />
-            <KeyboardArrowUpIcon onClick={() => handleNav("UP")} />
+            <KeyboardArrowLeftIcon onClick={goBackward} />
+            <KeyboardArrowRightIcon onClick={goForward} />
+            <KeyboardArrowUpIcon onClick={() => {}} />
             <TextField 
                 value={url}
                 variant="outlined" 
@@ -69,8 +67,8 @@ const TopNav = props => {
                 autoCapitalize="off" 
                 spellCheck="false"
                 className={classes.navUrlBar} 
-                onKeyUp={e => handleEnterUrl(e)}
-                onChange={e => handleChange(e.target.value)}
+                onKeyUp={e => {}}
+                onChange={e => {}}
             />
         </Box>
     )
@@ -80,4 +78,9 @@ const mapStateToProps = state => ({
     url: state.fmr.url
 })
 
-export default connect(mapStateToProps)(TopNav)
+const mapDispatchToProps = dispatch => ({
+    goForward: () => dispatch(actionGoForward()),
+    goBackward: () => dispatch(actionGoBackward())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(TopNav)
