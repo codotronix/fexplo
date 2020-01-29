@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import './App.css'
+import './App.scss'
 import TopNav from './components/topNav/TopNav'
 import FFContainer from './components/ffContainer/FFContainer'
-import * as Actions from './redux/actions'
+import { actionGoToUrl } from './redux/actions'
+import { getHomePath } from './service/FileManager'
 
 const App = props => {
   useEffect(() => {
-    props.initStateToHome()
+    const url = getHomePath()
+    props.goToUrl(url)
   }, [props])
 
   return (
@@ -19,7 +21,7 @@ const App = props => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  initStateToHome: () => dispatch(Actions.initStateToHome())
+  goToUrl: url => dispatch(actionGoToUrl(url))
 })
 
 export default connect(null, mapDispatchToProps)(App)

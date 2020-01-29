@@ -1,9 +1,8 @@
 import * as ActionTypes from './actionTypes'
 import * as FM from '../service/FileManager'
 
-export const initStateToHome = () => {
+export const actionGoToUrl = url => {
     return dispatch => {
-        const url = FM.getHomePath()
         const ffList = FM.getDirContent(url)
         dispatch({
             type: ActionTypes.ADD_NEW_URL_FFLIST,
