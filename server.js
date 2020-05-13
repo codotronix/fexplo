@@ -38,7 +38,7 @@ app.post('/open-file', async (req, res, next) => {
 app.post('/open-url', async (req, res, next) => {
     try {
         const data = req.body
-        const url = data.url
+        const url = path.normalize(data.url)
         if(isDirectory(url)) {
             const content = await getDirContent(url)
             // console.log(content)
@@ -51,7 +51,7 @@ app.post('/open-url', async (req, res, next) => {
                 isSuccessful
             })
         }
-    } 
+    }
     catch (err) {
         console.log(err)
         res.json({ err })

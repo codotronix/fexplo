@@ -7,8 +7,14 @@
         ng-click="mvm.goForward()"
         ng-class="{'enabled': (mvm.currentHistoryIndex < (mvm.history.length-1))}"
     ></i>
-    <i class="fas fa-arrow-up btn-ico up enabled"></i>
-    <input type="text" class="txt-input url" value={{mvm.url}} />
+    <i class="fas fa-arrow-up btn-ico up enabled"
+        ng-click="mvm.goUpward()"
+    ></i>
+    <input type="text" 
+        class="txt-input url" 
+        ng-model="mvm.url"
+        ng-keyup="mvm.handleUrlKeyUp($event)"
+    />
     
     <div class="input-ico-right search-container">
         <input type="text" class="txt-input search" placeholder="Search..." />

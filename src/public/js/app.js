@@ -1,7 +1,8 @@
 angular.module('fexPloFE', [])
-.controller('mainController', ['$http', function($http){
+.controller('mainController', ['$http', '$scope', function($http, $scope){
     let mvm = this;
-    mvm.url = '';
+    let currentUrl = '';    //  will strictly hold current url
+    mvm.url = '';           // this is the model, so might change with input url
     mvm.selectedIndex = '';
     mvm.files = [];
 
@@ -25,6 +26,8 @@ angular.module('fexPloFE', [])
     mvm.open = open;
     mvm.goBackward = goBackward;
     mvm.goForward = goForward;
+    mvm.goUpward = goUpward;
+    mvm.handleUrlKeyUp = handleUrlKeyUp;
     init();
 
     /**
@@ -44,7 +47,7 @@ angular.module('fexPloFE', [])
     function open (i) {
         let f = mvm.files[i]
         let data = {
-            current: mvm.url,
+            current: currentUrl,
             target: f.name
         }
 
@@ -61,6 +64,7 @@ angular.module('fexPloFE', [])
     }
 
     function openFileFolderUrl (url) {
+        if(url === currentUrl) return
         $http.post('/open-url', { url })
         .then(res => populate(res.data))
         .catch(err => console.log(err))
@@ -72,8 +76,9 @@ angular.module('fexPloFE', [])
      * @param {Object} data | The "getDirectory content" received from server
      */
     function populate(data) {
-        if(!data.content) return
-        mvm.url = data.url
+        if(!data.content || currentUrl === data.url) return
+        currentUrl = data.url
+        mvm.url = currentUrl
         mvm.files = data.content
         mvm.selectedIndex = ''
         if(!isHistoryNav) {
@@ -87,6 +92,7 @@ angular.module('fexPloFE', [])
             mvm.currentHistoryIndex = mvm.history.length-1
         }
         isHistoryNav = false
+        $scope.$apply()
     }
 
     function goBackward () {
@@ -105,6 +111,29 @@ angular.module('fexPloFE', [])
             openFileFolderUrl(mvm.history[mvm.currentHistoryIndex])
         }
         
+    }
+
+    /**
+     * Get the parent directory content
+     */
+    function goUpward () {
+        let parentUrl = currentUrl + '/..';
+        openFileFolderUrl(parentUrl)
+    }
+
+    /**
+     * Catch the enter key press on url bar
+     * @param {Event} e 
+     */
+    function handleUrlKeyUp(e) {
+        // console.log(e.keyCode)
+        e.stopPropagation()
+        if(e.keyCode === 13) {
+            let newUrl = e.target.value
+            if(newUrl !== currentUrl) {
+                openFileFolderUrl(newUrl)
+            }
+        }
     }
     
 }])
