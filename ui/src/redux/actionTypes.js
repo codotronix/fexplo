@@ -1,4 +1,0 @@
-export const ADD_NEW_URL_FFLIST = "ADD_NEW_URL_FFLIST"
-export const UPDATE_FFLIST_ONLY = "UPDATE_FFLIST_ONLY"
-export const GO_FORWARD = "GO_FORWARD"
-export const GO_BACKWARD = "GO_BACKWARD"

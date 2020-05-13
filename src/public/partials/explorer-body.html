@@ -1,0 +1,9 @@
+<div class="ffcontainer">
+    <div class="ffbox" ng-repeat="f in mvm.files track by $index">
+        <i class="fas fa-folder ico folder" ng-if="f.isDirectory"></i>
+        <i class="fas fa-file ico file" ng-if="f.isFile"></i>
+        <i class="fas fa-link ico link" ng-if="f.isSymbolicLink"></i>
+
+        <div class="name">{{f.name}}</div>
+    </div>
+</div>

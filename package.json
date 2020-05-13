@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "dev": "npm run --prefix ui start && npm start",
+    "dev": "nodemon server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -29,5 +29,8 @@
   "devDependencies": {
     "electron": "^7.1.9"
   },
-  "dependencies": {}
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.3"
+  }
 }
