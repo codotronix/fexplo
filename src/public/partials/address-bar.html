@@ -1,7 +1,13 @@
 <div class="address-bar">
-    <i class="fas fa-arrow-left btn-ico"></i>
-    <i class="fas fa-arrow-right btn-ico"></i>
-    <i class="fas fa-arrow-up btn-ico"></i>
+    <i class="fas fa-arrow-left btn-ico left" 
+        ng-click="mvm.goPrev()"
+        ng-class="{'enabled': (mvm.currentHistoryIndex > 0)}"
+    ></i>
+    <i class="fas fa-arrow-right btn-ico right" 
+        ng-click="mvm.goForward()"
+        ng-class="{'enabled': (mvm.currentHistoryIndex < (mvm.history.length-1))}"
+    ></i>
+    <i class="fas fa-arrow-up btn-ico up enabled"></i>
     <input type="text" class="txt-input url" value={{mvm.url}} />
     
     <div class="input-ico-right search-container">

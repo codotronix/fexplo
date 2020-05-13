@@ -44,4 +44,12 @@ module.exports.getParentPath = currentPath => {
     return parts.join(path.sep)
 }
 
-module.exports.openFileOSDefault = file => shell.openItem(file)
+module.exports.openFileOSDefault = file => {
+    try {
+        return shell.openItem(file)
+    } 
+    catch (err) {
+        console.log(err)
+        return false
+    }
+}

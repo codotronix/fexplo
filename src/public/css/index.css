@@ -35,6 +35,11 @@ body {
     display: flex;
     align-items: center;
     padding: 0 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 99;
 }
 .address-bar .btn-ico {
     height: 30px;
@@ -45,8 +50,13 @@ body {
     justify-content: center;
     font-size: 18px;
     color: #fff;
+    opacity: .5;
+    user-select: none;
 }
-.address-bar .btn-ico:hover {
+.address-bar .btn-ico.enabled {
+    opacity: 1;
+}
+.address-bar .btn-ico.enabled:hover {
     transform: scale(1.5);
 }
 .address-bar .txt-input {
@@ -72,11 +82,12 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     grid-auto-rows: 120px;
-    grid-gap: 15px;
+    grid-gap: 10px;
     padding: 20px;
+    margin-top: 40px;
 }
 .ffbox {
-    background-color: rgba(154, 205, 50, 0.02);
+    background-color: rgba(154, 205, 50, 0.05);
     overflow: hidden;
     text-overflow: ellipsis;
     padding: 10px;
@@ -115,4 +126,5 @@ body {
 .ffbox .name {
     overflow: hidden;
     text-overflow: ellipsis;
+    color: rgba(0, 0, 0, .8)
 }

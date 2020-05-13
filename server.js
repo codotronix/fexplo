@@ -1,7 +1,7 @@
 const express = require('express')
 const path = require('path')
 const os = require('os')
-const { getHomePath, getDirContent, openFileOSDefault } = require('./src/services/ffhelper')
+const { getHomePath, getDirContent, openFileOSDefault, isDirectory } = require('./src/services/ffhelper')
 
 const app = express()
 app.use(express.static(path.join(__dirname, 'src', 'public')))
@@ -28,6 +28,29 @@ app.post('/open-file', async (req, res, next) => {
             msg: 'Trying to open with OS Default ...',
             isSuccessful
         })
+    } 
+    catch (err) {
+        console.log(err)
+        res.json({ err })
+    }
+})
+
+app.post('/open-url', async (req, res, next) => {
+    try {
+        const data = req.body
+        const url = data.url
+        if(isDirectory(url)) {
+            const content = await getDirContent(url)
+            // console.log(content)
+            res.json({ url, content })
+        }
+        else {
+            let isSuccessful = openFileOSDefault(url)
+            res.json({
+                msg: 'Trying to open with OS Default ...',
+                isSuccessful
+            })
+        }
     } 
     catch (err) {
         console.log(err)
