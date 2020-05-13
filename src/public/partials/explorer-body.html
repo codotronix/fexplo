@@ -1,5 +1,10 @@
 <div class="ffcontainer">
-    <div class="ffbox" ng-repeat="f in mvm.files track by $index">
+    <div class="ffbox" 
+        ng-repeat="f in mvm.files track by $index"
+        ng-class="{selected: (mvm.selectedIndex === $index)}"
+        ng-click="mvm.select($index)"
+        ng-dblclick="mvm.open($index)"
+    >
         <i class="fas fa-folder ico folder" ng-if="f.isDirectory"></i>
         <i class="fas fa-file ico file" ng-if="f.isFile"></i>
         <i class="fas fa-link ico link" ng-if="f.isSymbolicLink"></i>

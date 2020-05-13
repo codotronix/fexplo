@@ -10,19 +10,63 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
 }
+/******************************************************
+* Utility Classes
+******************************************************/
+.input-ico-right {
+    position: relative;
+}
+.input-ico-right input {
+    padding-right: 32px !important;
+}
+.input-ico-right .ico {
+    position: absolute;
+    right: 0px;
+    top: 0;
+    font-size: 16px;
+    color: rgba(0, 0, 0, .5);
+    padding: 5px;
+    /* border-left: 1px solid #ccc; */
+}
+/*****************************************************/
 .address-bar {
     height: 40px;
     background: yellowgreen;
     display: flex;
     align-items: center;
+    padding: 0 10px;
 }
-.address-bar .url {
+.address-bar .btn-ico {
+    height: 30px;
+    width: 30px;
+    margin: 0 2.5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #fff;
+}
+.address-bar .btn-ico:hover {
+    transform: scale(1.5);
+}
+.address-bar .txt-input {
     height: 26px;
-    flex-grow: 1;
-    max-width: 600px;
-    margin: 0 10px;
+    margin: 0 5px;
     font-size: 16px;
     padding: 2px 5px;
+    border: none;
+    border-radius: 2px;
+}
+.address-bar .url {
+    flex-grow: 1;
+}
+.address-bar .search-container {
+    max-width: 300px;
+    flex-grow: 1;
+    overflow: hidden;
+}
+.address-bar .search-container .search {
+    width: 100%;
 }
 .ffcontainer {
     display: grid;
@@ -37,6 +81,24 @@ body {
     text-overflow: ellipsis;
     padding: 10px;
     text-align: center;
+    position: relative;
+}
+.ffbox::after {
+    content: '';
+    position: absolute;
+    background-color: rgba(154, 205, 50, 0.2);
+    top: 0;
+    /* bottom: 0; */
+    left: 0;
+    /* right: 0; */
+    width: 0;
+    height: 0;
+    /* transition: all 100ms linear; */
+}
+.ffbox:hover::after,
+.ffbox.selected::after {
+    width: 100%;
+    height: 100%;
 }
 .ffbox .ico {
     font-size: 54px;

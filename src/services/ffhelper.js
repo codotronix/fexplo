@@ -1,7 +1,7 @@
 const os = require("os")
 const fs = require("fs")
 const path = require('path')
-const shell = require('electron').shell
+const { shell } = require('electron')
 
 // It returns array of dirent (Directory Entry Objects)
 module.exports.getDirContent = path => {
@@ -36,8 +36,6 @@ module.exports.isDirectory = path => {
         return false;
     }
 }
-
-module.exports.joinPath = (...pathArr) => path.join(...pathArr)
 
 module.exports.getParentPath = currentPath => {
     let parts = currentPath.split(path.sep)
