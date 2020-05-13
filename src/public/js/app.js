@@ -23,7 +23,7 @@ angular.module('fexPloFE', [])
 
     mvm.select = i => mvm.selectedIndex = i;
     mvm.open = open;
-    mvm.goPrev = goPrev;
+    mvm.goBackward = goBackward;
     mvm.goForward = goForward;
     init();
 
@@ -89,7 +89,7 @@ angular.module('fexPloFE', [])
         isHistoryNav = false
     }
 
-    function goPrev () {
+    function goBackward () {
         if(mvm.currentHistoryIndex > 0) {
             --mvm.currentHistoryIndex;
             isHistoryNav = true;
