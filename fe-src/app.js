@@ -1,3 +1,10 @@
+const path = require('path')
+
+// NOTE: __dirname represents where index.html is present, which
+// is being pointed to by main.js of electron
+const channel = require(path.join(__dirname, '..', 'common', 'channel.js'))
+const comm = require(path.join(__dirname, 'js', 'comm.js'))
+
 angular.module('fexPloFE', [])
 .controller('mainController', ['$http', '$scope', function($http, $scope){
     let mvm = this;
@@ -5,6 +12,7 @@ angular.module('fexPloFE', [])
     mvm.url = '';           // this is the model, so might change with input url
     mvm.selectedIndex = '';
     mvm.files = [];
+
 
     /**
      * Logic for history
@@ -35,9 +43,14 @@ angular.module('fexPloFE', [])
      * TODO: If opened from terminal user might pass some parameter like which folder to open
      */
     function init () {
-        $http.get('/get-home-content')
-        .then(res => populate(res.data))
-        .catch(err => console.log(err))
+        bindAllListeners()
+        comm.send(channel.GET_HOME_CONTENT)
+    }
+
+    function bindAllListeners () {
+        comm.on(channel.GET_HOME_CONTENT, (e, data) => populate(data))
+        comm.on(channel.GET_DIR_CONTENT, (e, data) => populate(data))
+        comm.on(channel.OPEN_URI, (e, data) => populate(data))
     }
     
     /**
@@ -52,22 +65,16 @@ angular.module('fexPloFE', [])
         }
 
         if(f.isDirectory) {
-            $http.post('/get-dir-content', data)
-            .then(res => populate(res.data))
-            .catch(err => console.log(err))
+            comm.send(channel.GET_DIR_CONTENT, data)
         }
         else {
-            $http.post('/open-file', data)
-            .then(res => console.log(res.data))
-            .catch(err => console.log(err))
+            comm.send(channel.OPEN_FILE, data)
         }
     }
 
     function openFileFolderUrl (url) {
         if(url === currentUrl) return
-        $http.post('/open-url', { url })
-        .then(res => populate(res.data))
-        .catch(err => console.log(err))
+        comm.send(channel.OPEN_URI, { url })
     }
 
     /**
