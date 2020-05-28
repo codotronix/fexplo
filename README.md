@@ -20,6 +20,8 @@ Since, **it is in development**, let's see the features that are done and are ye
 
 - [x] Multi select files / folders with `Ctrl+Click`
 
+- [x] Select range of files / folders with `Shift+Click`
+
 - [ ] Clicking on the name text should let the user to rename that file/folder
 
 - [ ] `ENTER` to open the selected file/folder

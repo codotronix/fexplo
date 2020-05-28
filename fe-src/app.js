@@ -160,15 +160,39 @@ angular.module('fexPloFE', [])
      * When user clicks on a file / folder
      * If Ctrl is pressed, then multi-select
      * Else single select
+     * 
+     * If Shift is pressed
+     * push the entire range of last selected index to/from this index to selectedIndices
      */
     function select (e, i) {
         e.stopPropagation()
-        if(isKeyDown[KEYCODES.CTRL]) {
+
+        // Check for SHIFT key
+        if(isKeyDown[KEYCODES.SHIFT]) {
+            // Start the shift selection range from the last selected Index
+            // Let's call it firstShiftIndex
+            let firstShiftIndex = mvm.selectedIndices[mvm.selectedIndices.length-1]
+            
+            if (firstShiftIndex === i) return
+            // add the range of |thisIndex ~ firstShiftIndex| to selectedIndices
+            let start = (i < firstShiftIndex) ? i : firstShiftIndex
+            let end = (i > firstShiftIndex) ? i : firstShiftIndex
+
+            while(start <= end) {
+                mvm.selectedIndices.push(start)
+                ++start
+            }
+        }
+
+        // Check for CTRL key
+        else if(isKeyDown[KEYCODES.CTRL]) {
             mvm.selectedIndices.push(i)
         } 
         else {
             mvm.selectedIndices = [i]
         }
+
+        
     }
     
 }])
