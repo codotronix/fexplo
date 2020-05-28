@@ -16,7 +16,7 @@ Since, **it is in development**, let's see the features that are done and are ye
 
 - [x] Users can also directly write / paste any folder path in the url-bar and press `ENTER` on keyboard to get into that directory
 
-- [x] Clicking on a file selects it
+- [x] Click to select
 
 - [ ] Clicking on the name text should let the user to rename that file/folder
 
