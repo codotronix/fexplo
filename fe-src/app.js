@@ -3,16 +3,18 @@ const path = require('path')
 // NOTE: __dirname represents where index.html is present, which
 // is being pointed to by main.js of electron
 const channel = require(path.join(__dirname, '..', 'common', 'channel.js'))
-const comm = require(path.join(__dirname, 'js', 'comm.js'))
+const comm = require(path.join(__dirname, 'services', 'comm.js'))
+const KEYCODES = require(path.join(__dirname, 'services', 'keycode.js'))
 
 angular.module('fexPloFE', [])
 .controller('mainController', ['$http', '$scope', function($http, $scope){
     let mvm = this;
     let currentUrl = '';    //  will strictly hold current url
     mvm.url = '';           // this is the model, so might change with input url
-    mvm.selectedIndex = '';
+    mvm.selectedIndices = [];   // All the selected Items in current view
     mvm.files = [];
 
+    let isKeyDown = {}  // Will hold all the keyDown info
 
     /**
      * Logic for history
@@ -30,12 +32,17 @@ angular.module('fexPloFE', [])
     mvm.currentHistoryIndex = -1;
     let isHistoryNav = false;   // will be tru only for history left-right buttons
 
-    mvm.select = i => mvm.selectedIndex = i;
-    mvm.open = open;
-    mvm.goBackward = goBackward;
-    mvm.goForward = goForward;
-    mvm.goUpward = goUpward;
-    mvm.handleUrlKeyUp = handleUrlKeyUp;
+    mvm.select = select
+    mvm.clickedOnWhiteArea = clickedOnWhiteArea
+    mvm.open = open
+    mvm.goBackward = goBackward
+    mvm.goForward = goForward
+    mvm.goUpward = goUpward
+    mvm.handleUrlKeyUp = handleUrlKeyUp
+
+    mvm.keydown = e => isKeyDown[e.keyCode] = true
+    mvm.keyup = e => isKeyDown[e.keyCode] = false
+
     init();
 
     /**
@@ -57,7 +64,8 @@ angular.module('fexPloFE', [])
      * When user double-clicks on any file/folder
      * @param {Number} i | the index of mvm.files where user has double-clicked
      */
-    function open (i) {
+    function open (e, i) {
+        e.stopPropagation()
         let f = mvm.files[i]
         let data = {
             current: currentUrl,
@@ -87,7 +95,7 @@ angular.module('fexPloFE', [])
         currentUrl = data.url
         mvm.url = currentUrl
         mvm.files = data.content
-        mvm.selectedIndex = ''
+        mvm.selectedIndices = []
         if(!isHistoryNav) {
             // remove everything from history after current url object
             // if currentHistoryIndex < (history.lenght-1)
@@ -140,6 +148,26 @@ angular.module('fexPloFE', [])
             if(newUrl !== currentUrl) {
                 openFileFolderUrl(newUrl)
             }
+        }
+    }
+
+    function clickedOnWhiteArea (e) {
+        e.stopPropagation()
+        mvm.selectedIndices = []
+    }
+
+    /**
+     * When user clicks on a file / folder
+     * If Ctrl is pressed, then multi-select
+     * Else single select
+     */
+    function select (e, i) {
+        e.stopPropagation()
+        if(isKeyDown[KEYCODES.CTRL]) {
+            mvm.selectedIndices.push(i)
+        } 
+        else {
+            mvm.selectedIndices = [i]
         }
     }
     

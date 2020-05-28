@@ -1,9 +1,9 @@
-<div class="ffcontainer">
+<div class="ffcontainer" ng-click="mvm.clickedOnWhiteArea($event)">
     <div class="ffbox" 
         ng-repeat="f in mvm.files track by $index"
-        ng-class="{selected: (mvm.selectedIndex === $index)}"
-        ng-click="mvm.select($index)"
-        ng-dblclick="mvm.open($index)"
+        ng-class="{selected: mvm.selectedIndices.includes($index)}"
+        ng-click="mvm.select($event, $index)"
+        ng-dblclick="mvm.open($event, $index)"
     >
         <i class="fas fa-folder ico folder" ng-if="f.isDirectory"></i>
         <i class="fas fa-file ico file" ng-if="f.isFile"></i>
