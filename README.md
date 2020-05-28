@@ -18,11 +18,11 @@ Since, **it is in development**, let's see the features that are done and are ye
 
 - [x] Click to select
 
+- [x] Multi select files / folders with `Ctrl+Click`
+
 - [ ] Clicking on the name text should let the user to rename that file/folder
 
 - [ ] `ENTER` to open the selected file/folder
-
-- [ ] Multi select files / folders with `Ctrl+Click`
 
 - [ ] Search functionality
 
@@ -33,4 +33,8 @@ Since, **it is in development**, let's see the features that are done and are ye
 - [ ] `BACKSPACE` keypress should trigger the backwards navigation button
 
 - [ ] Show information related to the selected file / folder in the footer
+
+- [ ] Menu functionality - Select All (Ctrl+A)
+
+- [ ] Cut, Copy, Paste
 
