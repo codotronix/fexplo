@@ -48,6 +48,13 @@ angular.module('fexPloFE', [])
         if(e.keyCode === KEYCODES.ENTER) {
             enterFileFolder()
         }
+
+        //Is 'BACKSPACE' keyup
+        if(e.keyCode === KEYCODES.BACKSPACE) {
+            goBackward()
+        }
+
+        // console.log(e.keyCode)
     }
 
     init();
@@ -123,7 +130,6 @@ angular.module('fexPloFE', [])
             isHistoryNav = true;
             openFileFolderUrl(mvm.history[mvm.currentHistoryIndex])
         }
-        
     }
 
     function goForward () {

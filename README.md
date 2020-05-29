@@ -32,7 +32,7 @@ Since, **it is in development**, let's see the features that are done and are ye
 
 - [ ] `DELETE` keypress should delete the selected entity
 
-- [ ] `BACKSPACE` keypress should trigger the backwards navigation button
+- [x] `BACKSPACE` keypress should trigger the backwards navigation button
 
 - [ ] Show information related to the selected file / folder in the footer
 

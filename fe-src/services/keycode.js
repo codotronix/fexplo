@@ -1,4 +1,5 @@
 module.exports = {
+    BACKSPACE: 8,
     ENTER: 13,
     SHIFT: 16,
     CTRL: 17,
