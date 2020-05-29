@@ -8,7 +8,8 @@ const {
     getHomeContent,
     getDirContent,
     openFile,
-    openURI
+    openURI,
+    rename
 } = require('./be-src/controllers/primary')
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -80,4 +81,5 @@ function bindIncomingListeners () {
     ipcMain.on(channel.GET_DIR_CONTENT, getDirContent)
     ipcMain.on(channel.OPEN_FILE, openFile)
     ipcMain.on(channel.OPEN_URI, openURI)
+    ipcMain.on(channel.RENAME, rename)
 }

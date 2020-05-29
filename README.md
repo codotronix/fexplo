@@ -22,7 +22,7 @@ Since, **it is in development**, let's see the features that are done and are ye
 
 - [x] Select range of files / folders with `Shift+Click`
 
-- [ ] Clicking on the name text should let the user to rename that file/folder
+- [x] Clicking on the name text should let the user to rename that file/folder
 
 - [x] `ENTER` to open the selected file/folder - Single selection only [No accidental opening of large number of files/folders, leading to processor overload]
 

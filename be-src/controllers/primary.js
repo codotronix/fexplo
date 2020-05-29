@@ -1,4 +1,5 @@
 const path = require('path')
+const fs = require('fs')
 const { 
     getHomePath, 
     getDirContent, 
@@ -68,6 +69,26 @@ module.exports.openURI = async (e, data) => {
             })
         }
     }
+    catch (err) {
+        console.log(err)
+    }
+}
+
+module.exports.rename = async (e, data) => {
+    try {
+        const oldPath = path.join(data.current, data.oldName)
+        const newPath = path.join(data.current, data.newName)
+        fs.rename(oldPath, newPath, async err => {
+            if(err) {
+                console.log(err)
+                return
+            }
+
+            // IF rename is successfull, refresh the directory contents
+            const content = await getDirContent(data.current)
+            _send(channel.GET_DIR_CONTENT , { url: data.current, content })
+        })
+    } 
     catch (err) {
         console.log(err)
     }

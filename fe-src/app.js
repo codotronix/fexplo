@@ -85,6 +85,8 @@ angular.module('fexPloFE', [])
      */
     function open (e, i) {
         e && e.stopPropagation()
+        mvm.editableIndex = null
+
         let f = mvm.files[i]
         let data = {
             current: currentUrl,
@@ -110,11 +112,12 @@ angular.module('fexPloFE', [])
      * @param {Object} data | The "getDirectory content" received from server
      */
     function populate(data) {
-        if(!data.content || currentUrl === data.url) return
+        if(!data.content) return
         currentUrl = data.url
         mvm.url = currentUrl
         mvm.files = data.content
         mvm.selectedIndices = []
+        mvm.editableIndex = null
         if(!isHistoryNav) {
             // remove everything from history after current url object
             // if currentHistoryIndex < (history.lenght-1)
@@ -256,10 +259,19 @@ angular.module('fexPloFE', [])
 
         if(!newName || (newName === oldName)) return
 
-        console.log(i, 'th index to be renamed to = ', newName)
+        if(mvm.files.filter(f => f.name === newName).length > 0) {
+            console.log('A file / folder with same name already exists in this directory ...')
+            return
+        }
+
+        console.log(i, 'th index file/folder to be renamed to = ', newName)
         
-        // Finally Cleanup / Reset
-        
+        let data = {
+            current: currentUrl,
+            oldName, newName
+        }
+
+        comm.send(channel.RENAME, data)
     }
 
     /**

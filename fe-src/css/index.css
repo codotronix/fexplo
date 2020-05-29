@@ -131,9 +131,18 @@ body {
     position: relative;
     z-index: 9;
 }
+.ffbox .name .name-txt {
+    word-break: break-word;
+}
+.ffbox .name .rename-txt {
+    padding: 3px 5px;
+    width: 100%;
+    border-radius: 3px;
+    border: 1px solid #bbb;
+}
 .ffbox.editable .name .rename-txt,
 .ffbox .name .name-txt {
-    display: block;
+    display: inline-block;
 }
 .ffbox .name .rename-txt,
 .ffbox.editable .name .name-txt {
