@@ -128,4 +128,14 @@ body {
     text-overflow: ellipsis;
     color: rgba(0, 0, 0, .8);
     user-select: none;
+    position: relative;
+    z-index: 9;
+}
+.ffbox.editable .name .rename-txt,
+.ffbox .name .name-txt {
+    display: block;
+}
+.ffbox .name .rename-txt,
+.ffbox.editable .name .name-txt {
+    display: none;
 }

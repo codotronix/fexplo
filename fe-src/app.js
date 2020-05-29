@@ -13,8 +13,10 @@ angular.module('fexPloFE', [])
     mvm.url = '';           // this is the model, so might change with input url
     mvm.selectedIndices = [];   // All the selected Items in current view
     mvm.files = [];
+    mvm.editableIndex = null // The index which is currently editable for renaming
 
     let isKeyDown = {}  // Will hold all the keyDown info
+    
 
     /**
      * Logic for history
@@ -33,12 +35,15 @@ angular.module('fexPloFE', [])
     let isHistoryNav = false;   // will be tru only for history left-right buttons
 
     mvm.select = select
+    mvm.markEditableForRename = markEditableForRename
     mvm.clickedOnWhiteArea = clickedOnWhiteArea
     mvm.open = open
     mvm.goBackward = goBackward
     mvm.goForward = goForward
     mvm.goUpward = goUpward
     mvm.handleUrlKeyUp = handleUrlKeyUp
+    mvm.enterToRename = enterToRename
+    mvm.stopPropagation = e => e.stopPropagation()  // A generic stop propagation function
 
     mvm.keydown = e => isKeyDown[e.keyCode] = true
     mvm.keyup = e => {
@@ -54,7 +59,7 @@ angular.module('fexPloFE', [])
             goBackward()
         }
 
-        // console.log(e.keyCode)
+        console.log(e.keyCode)
     }
 
     init();
@@ -167,6 +172,9 @@ angular.module('fexPloFE', [])
     function clickedOnWhiteArea (e) {
         e.stopPropagation()
         mvm.selectedIndices = []
+
+        // Check if any renaming was in progress
+        doRename()
     }
 
     /**
@@ -179,7 +187,6 @@ angular.module('fexPloFE', [])
      */
     function select (e, i) {
         e.stopPropagation()
-
         // Check for SHIFT key
         if(isKeyDown[KEYCODES.SHIFT]) {
             // Start the shift selection range from the last selected Index
@@ -204,6 +211,9 @@ angular.module('fexPloFE', [])
         else {
             mvm.selectedIndices = [i]
         }
+
+        // Was any rename in Progress
+        doRename()
     }
 
     /**
@@ -220,5 +230,49 @@ angular.module('fexPloFE', [])
             console.log("WARNING: Multiple Selected... Select 1 and try again ...")
         }
     }
+
+    /**
+     * Mark the specified item as Editable
+     */
+    function markEditableForRename (e, i) {
+        e.stopPropagation()
+        // console.log('Edit at item index = ', i)
+        mvm.editableIndex = i
+    }
+
+    /**
+     * When the focus goes out of the renaming-input field,
+     * Then retrieve the value, do validation, and if all goes well,
+     * Do the Rename
+     * Finally reset the mvm.editableIndex 
+     */
+    function doRename () {
+        if(mvm.editableIndex === null) return
+
+        let i = mvm.editableIndex
+        mvm.editableIndex = null // to come out of the Editable state
+        let newName = document.querySelectorAll('.ffbox .rename-txt')[i].value.trim()
+        let oldName = mvm.files[i].name
+
+        if(!newName || (newName === oldName)) return
+
+        console.log(i, 'th index to be renamed to = ', newName)
+        
+        // Finally Cleanup / Reset
+        
+    }
+
+    /**
+     * If user clicks ENTER in an editable/rename field,
+     * Detect and Respond accordingly
+     */
+    function enterToRename (e) {
+        e.stopPropagation()
+
+        if(e.keyCode === KEYCODES.ENTER) {
+            doRename()
+        }
+    }
+
     
 }])

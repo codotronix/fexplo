@@ -1,7 +1,12 @@
-<div class="ffcontainer" ng-click="mvm.clickedOnWhiteArea($event)">
+<div class="ffcontainer" 
+    ng-click="mvm.clickedOnWhiteArea($event)"
+>
     <div class="ffbox" 
         ng-repeat="f in mvm.files track by $index"
-        ng-class="{selected: mvm.selectedIndices.includes($index)}"
+        ng-class="{
+            selected: mvm.selectedIndices.includes($index), 
+            editable: (mvm.editableIndex === $index)
+        }"
         ng-click="mvm.select($event, $index)"
         ng-dblclick="mvm.open($event, $index)"
     >
@@ -9,6 +14,15 @@
         <i class="fas fa-file ico file" ng-if="f.isFile"></i>
         <i class="fas fa-link ico link" ng-if="f.isSymbolicLink"></i>
 
-        <div class="name">{{f.name}}</div>
+        <div class="name">
+            <span class="name-txt" ng-click="mvm.markEditableForRename($event, $index)">
+                {{f.name}}
+            </span>
+            <input type="text" class="rename-txt" value="{{f.name}}"
+                ng-click="mvm.stopPropagation($event)"
+                ng-keyup="mvm.enterToRename($event)"
+                ng-keydown="mvm.stopPropagation($event)"
+            />
+        </div>
     </div>
 </div>
