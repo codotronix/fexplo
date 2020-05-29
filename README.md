@@ -1,5 +1,5 @@
 # FEXPLO
-*Fexplo* (**F**older **EXPLO**rer) is a lightweight cross-platform explorer to navigate through the directory tree of any OS (Windows, MAC, Linux).
+*Fexplo* (**F**older **EXPLO**rer) is a **lightweight cross-platform folder explorer** to navigate through the directory tree of any OS (Windows, MAC, Linux).
 
 Since, **it is in development**, let's see the features that are done and are yet to be done.
 
