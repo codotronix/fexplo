@@ -41,7 +41,14 @@ angular.module('fexPloFE', [])
     mvm.handleUrlKeyUp = handleUrlKeyUp
 
     mvm.keydown = e => isKeyDown[e.keyCode] = true
-    mvm.keyup = e => isKeyDown[e.keyCode] = false
+    mvm.keyup = e => {
+        isKeyDown[e.keyCode] = false
+        
+        // Is 'ENTER' keyup ?
+        if(e.keyCode === KEYCODES.ENTER) {
+            enterFileFolder()
+        }
+    }
 
     init();
 
@@ -65,7 +72,7 @@ angular.module('fexPloFE', [])
      * @param {Number} i | the index of mvm.files where user has double-clicked
      */
     function open (e, i) {
-        e.stopPropagation()
+        e && e.stopPropagation()
         let f = mvm.files[i]
         let data = {
             current: currentUrl,
@@ -191,8 +198,21 @@ angular.module('fexPloFE', [])
         else {
             mvm.selectedIndices = [i]
         }
+    }
 
-        
+    /**
+     * When ENTER key is pressed, check how many items are selected
+     * IF Single, try to Open it
+     * IF Multiple, show warning as this might be done accidentally 
+     * and might clog the processor and hang everything
+     */
+    function enterFileFolder () {
+        if(mvm.selectedIndices.length === 1) {
+            open(null, mvm.selectedIndices[0])
+        }
+        else if (mvm.selectedIndices.length > 1) {
+            console.log("WARNING: Multiple Selected... Select 1 and try again ...")
+        }
     }
     
 }])

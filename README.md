@@ -24,7 +24,7 @@ Since, **it is in development**, let's see the features that are done and are ye
 
 - [ ] Clicking on the name text should let the user to rename that file/folder
 
-- [ ] `ENTER` to open the selected file/folder
+- [x] `ENTER` to open the selected file/folder - Single selection only [No accidental opening of large number of files/folders, leading to processor overload]
 
 - [ ] Search functionality
 

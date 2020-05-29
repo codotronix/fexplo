@@ -1,4 +1,5 @@
 module.exports = {
+    ENTER: 13,
     SHIFT: 16,
     CTRL: 17,
     LEFT: 37,
