@@ -2,8 +2,8 @@
 *Fexplo* (**F**older **EXPLO**rer) is a **lightweight cross-platform folder explorer** to navigate through the directory tree of any OS (Windows, MAC, Linux). It is currently in development phase.
 
 ## Menu
-- [Screenshots](https://github.com/codotronix/fexplo#Screenshots)
-- [Features (Complete and Planned)](https://github.com/codotronix/fexplo#Features)
+- [Screenshots](https://github.com/codotronix/fexplo#screenshots)
+- [Features (Complete and Planned)](https://github.com/codotronix/fexplo#features)
 
 ## Screenshots
 
