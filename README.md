@@ -1,4 +1,8 @@
-# FEXPLO ![Fexplo-logo](https://github.com/codotronix/fexplo/blob/master/Extras/Art-Works/generated-pngs/logos/fexplo-logo-30x.png) 
+<div style="text-align: center;">
+  <img src="https://github.com/codotronix/fexplo/blob/master/Extras/Art-Works/generated-pngs/logos/fexplo-logo-50x.png" alt="Fexplo logo" />
+  
+</div>
+# FEXPLO ![Fexplo-logo]() 
 *Fexplo* (**F**older **EXPLO**rer) is a **lightweight cross-platform folder explorer** to navigate through the directory tree of any OS (Windows, MAC, Linux). It is currently in development phase.
 
 ## Menu
