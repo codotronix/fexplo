@@ -92,7 +92,7 @@ const menuTemplate = [
         submenu: [
             { 
                 label: "Select All",
-                accelerator: "CommandOrControl+A",
+                accelerator: "CommandOrControl+A",  // 'accelerator' Deprecated, doesnot work, used globalShortcut in app.ready
                 click () {
                     signalSelectAll()
                 }

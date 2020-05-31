@@ -50,7 +50,7 @@ Since, **it is in development**, let's see the features that are done and are ye
 
 - [ ] Show information related to the selected file / folder in the footer
 
-- [ ] Menu functionality - Select All `Ctrl+A`
+- [x] Menu functionality - Select All `Ctrl+A`
 
 - [ ] Menu functionality - Cut `Ctrl+X`, Copy `Ctrl+C`, Paste `Ctrl+V`
 
