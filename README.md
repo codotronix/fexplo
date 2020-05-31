@@ -1,3 +1,5 @@
+[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/codotronix/fexplo/blob/master/LICENSE)
+
 # FEXPLO ![Fexplo-logo](https://github.com/codotronix/fexplo/blob/master/Extras/Art-Works/generated-pngs/logos/fexplo-logo-30x.png)
 
 *Fexplo* (**F**older **EXPLO**rer) is a **lightweight cross-platform folder explorer** to navigate through the directory tree of any OS (Windows, MAC, Linux). It is currently in development phase.
