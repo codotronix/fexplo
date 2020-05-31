@@ -53,5 +53,7 @@ Since, **it is in development**, let's see the features that are done and are ye
 
 - [ ] Different views support, e.g. list view, details view, icons view etc
 
+- [ ] Take cmd / terminal argument as folder-path-to-open
+
 
 
