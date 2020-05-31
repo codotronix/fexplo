@@ -1,4 +1,5 @@
 [![GitHub license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/codotronix/fexplo/blob/master/LICENSE)
+[![Made With Love](https://img.shields.io/badge/Made%20With-Love-orange.svg)](https://github.com/codotronix/fexplo)
 
 # FEXPLO ![Fexplo-logo](https://github.com/codotronix/fexplo/blob/master/Extras/Art-Works/generated-pngs/logos/fexplo-logo-30x.png)
 
