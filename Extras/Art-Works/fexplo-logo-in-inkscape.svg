@@ -722,5 +722,21 @@
         </g>
       </g>
     </g>
+    <rect
+       style="opacity:1;fill:#9acd32;fill-opacity:1;stroke:none;stroke-width:0.42624372;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect933"
+       width="79.980637"
+       height="63.984512"
+       x="-127.16922"
+       y="-282.85968"
+       ry="3.5050678" />
+    <rect
+       style="opacity:1;fill:#007ef3;fill-opacity:1;stroke:none;stroke-width:0.42624372;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect935"
+       width="95.176964"
+       height="70.382965"
+       x="43.989353"
+       y="-182.08406"
+       ry="3.5050678" />
   </g>
 </svg>
