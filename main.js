@@ -21,6 +21,7 @@ function createWindow() {
     win = new BrowserWindow({
         width: 800,
         height: 600,
+        icon: './assets/icon/fexplo-logo-256x-3.png',
         webPreferences: {
             nodeIntegration: true
         }
@@ -29,7 +30,8 @@ function createWindow() {
     // and load the index.html of the app.
     // win.loadFile('./ui/build/index.html')
     // win.loadURL('http://localhost:9090/')
-    win.loadURL(`file://${__dirname}/fe-src/index.html`)
+    // win.loadURL(`file://${__dirname}/fe-src/index.html`) // Alternative way, but since we are only loading static things, we can use the simpler one
+    win.loadFile('./fe-src/index.html')
 
     // Open the DevTools.
     win.webContents.openDevTools()

@@ -59,7 +59,7 @@ angular.module('fexPloFE', [])
             goBackward()
         }
 
-        console.log(e.keyCode)
+        // console.log(e.keyCode)
     }
 
     init();
@@ -231,6 +231,7 @@ angular.module('fexPloFE', [])
         }
         else if (mvm.selectedIndices.length > 1) {
             console.log("WARNING: Multiple Selected... Select 1 and try again ...")
+            alert("WARNING: Multiple opening is disbaled. Please select one to open.")
         }
     }
 
