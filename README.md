@@ -1,5 +1,5 @@
 <h1 align="center">
-  <a href="https://github.com/codotronix/fexplo/blob/master/Extras/Art-Works/generated-pngs/logos/fexplo-logo-50x.png" alt="Fexplo logo"></a>
+  <img href="https://github.com/codotronix/fexplo/blob/master/Extras/Art-Works/generated-pngs/logos/fexplo-logo-50x.png" alt="Fexplo logo" />
   <br>
   FEXPLO
   <br>
