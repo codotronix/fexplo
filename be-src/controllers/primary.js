@@ -93,3 +93,5 @@ module.exports.rename = async (e, data) => {
         console.log(err)
     }
 }
+
+module.exports.sendToView = _send

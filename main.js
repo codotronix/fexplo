@@ -1,5 +1,5 @@
 
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow, ipcMain, Menu, globalShortcut } = require('electron')
 // const server = require('./server')
 const channel = require('./common/channel')
 const store = require('./be-src/services/store')
@@ -9,8 +9,10 @@ const {
     getDirContent,
     openFile,
     openURI,
-    rename
+    rename,
+    sendToView
 } = require('./be-src/controllers/primary')
+
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -33,15 +35,21 @@ function createWindow() {
     win.loadURL(`file://${__dirname}/fe-src/index.html`) // Alternative way, but since we are only loading static things, we can use the simpler one
     // win.loadFile('./fe-src/index.html')
 
+    // Set the Menu
+    const mainMenu =  Menu.buildFromTemplate(menuTemplate)
+    Menu.setApplicationMenu(mainMenu)
+
     // Open the DevTools.
     win.webContents.openDevTools()
 
     // Store a ref for Other modules to use
     store.set("MAIN_WINDOW", win)
 
-
     // Now bind all the controllers to their respective listeners
     bindIncomingListeners()
+
+    // The Menu accelerator String is no longer supported. The documentation was updated in v1.4.5 to clarify how to define shortcuts using globalShortcut.
+    globalShortcut.register('CommandOrControl+A', signalSelectAll)
 
     // Emitted when the window is closed.
     win.on('closed', () => {
@@ -78,6 +86,42 @@ app.on('activate', () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 
+const menuTemplate = [
+    {
+        label: "File",
+        submenu: [
+            { 
+                label: "Select All",
+                accelerator: "CommandOrControl+A",
+                click () {
+                    signalSelectAll()
+                }
+            },
+            { 
+                label: "Quit",
+                accelerator: "Ctrl+Q",
+                click () {
+                    app.quit()
+                }
+            }
+        ]
+    },
+    {
+        label: "Edit",
+        submenu: [
+            { role: 'reload' }
+        ]
+    },
+    {
+        label: "View",
+        submenu: [
+            { label: "Icon View" },
+            { label: "List View" },
+            { label: "Details View" }
+        ]
+    }
+]
+
 function bindIncomingListeners () {
     ipcMain.on(channel.GET_HOME_CONTENT, getHomeContent)
     ipcMain.on(channel.GET_DIR_CONTENT, getDirContent)
@@ -85,3 +129,5 @@ function bindIncomingListeners () {
     ipcMain.on(channel.OPEN_URI, openURI)
     ipcMain.on(channel.RENAME, rename)
 }
+
+const signalSelectAll = () => sendToView(channel.SELECT_ALL)

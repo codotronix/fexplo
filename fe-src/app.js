@@ -55,11 +55,11 @@ angular.module('fexPloFE', [])
         }
 
         //Is 'BACKSPACE' keyup
-        if(e.keyCode === KEYCODES.BACKSPACE) {
+        else if(e.keyCode === KEYCODES.BACKSPACE) {
             goBackward()
         }
 
-        // console.log(e.keyCode)
+        console.log(e.keyCode)
     }
 
     init();
@@ -77,6 +77,7 @@ angular.module('fexPloFE', [])
         comm.on(channel.GET_HOME_CONTENT, (e, data) => populate(data))
         comm.on(channel.GET_DIR_CONTENT, (e, data) => populate(data))
         comm.on(channel.OPEN_URI, (e, data) => populate(data))
+        comm.on(channel.SELECT_ALL, selectAll)
     }
     
     /**
@@ -217,6 +218,11 @@ angular.module('fexPloFE', [])
 
         // Was any rename in Progress
         doRename()
+    }
+
+    function selectAll () {
+        mvm.selectedIndices = mvm.files.map((f, i) => i)
+        $scope.$apply()
     }
 
     /**
