@@ -1,4 +1,4 @@
-[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/codotronix/fexplo/blob/master/LICENSE)
+[![GitHub license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/codotronix/fexplo/blob/master/LICENSE)
 
 # FEXPLO ![Fexplo-logo](https://github.com/codotronix/fexplo/blob/master/Extras/Art-Works/generated-pngs/logos/fexplo-logo-30x.png)
 
