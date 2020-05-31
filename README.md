@@ -1,10 +1,16 @@
 # FEXPLO
-*Fexplo* (**F**older **EXPLO**rer) is a **lightweight cross-platform folder explorer** to navigate through the directory tree of any OS (Windows, MAC, Linux).
+*Fexplo* (**F**older **EXPLO**rer) is a **lightweight cross-platform folder explorer** to navigate through the directory tree of any OS (Windows, MAC, Linux). It is currently in development phase.
 
-Since, **it is in development**, let's see the features that are done and are yet to be done.
+
+## Screenshots
+
+![Fexplo Screenshot 1](https://github.com/codotronix/fexplo/blob/master/Extras/screenshots/v001/fexplo-screen-1.PNG)
+![Fexplo Screenshot 1](https://github.com/codotronix/fexplo/blob/master/Extras/screenshots/v001/fexplo-screen-2.PNG)
 
 
 ## Features
+
+Since, **it is in development**, let's see the features that are done and are yet to be done.
 
 - [x] Initial window of Fexplo will show the content of the Home directory and also the same url will be visible in the URL bar
 
