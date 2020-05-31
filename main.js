@@ -19,7 +19,7 @@ let win
 function createWindow() {
     // Create the browser window.
     win = new BrowserWindow({
-        width: 800,
+        width: 900,
         height: 600,
         icon: `${__dirname}/assets/icon/fexplo-logo-256x-3.png`,    // Give absolute URL to repvent packaging errors
         webPreferences: {
