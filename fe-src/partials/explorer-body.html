@@ -5,6 +5,7 @@
     tabindex="0"
 >
     <div class="ffbox" 
+        tabindex="0"
         ng-repeat="f in mvm.files track by $index"
         ng-class="{
             selected: mvm.selectedIndices.includes($index), 

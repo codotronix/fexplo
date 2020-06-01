@@ -48,10 +48,12 @@ angular.module('fexPloFE', [])
     mvm.stopPropagation = e => e.stopPropagation()  // A generic stop propagation function
 
     mvm.keydown = e => {
+        if(!Object.values(KEYCODES).includes(e.keyCode)) return
         eStop(e)
         isKeyDown[e.keyCode] = true
     }
     mvm.keyup = e => {
+        if(!Object.values(KEYCODES).includes(e.keyCode)) return
         eStop(e)
 
         // console.log(e.target)
