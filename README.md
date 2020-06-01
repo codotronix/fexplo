@@ -30,6 +30,10 @@ Since, **it is in development**, let's see the features that are done and are ye
 
 - [x] Users can also directly write / paste any folder path in the url-bar and press `ENTER` on keyboard to get into that directory
 
+- [ ] A refresh icon beside url bar to refresh current directory
+
+- [x] Use proper icons for different file types, like, image, txt, pdf, word, excel etc
+
 - [x] Click to select
 
 - [x] Multi select files / folders with `Ctrl+Click`

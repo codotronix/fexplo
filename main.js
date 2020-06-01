@@ -50,6 +50,9 @@ function createWindow() {
 
     // The Menu accelerator String is no longer supported. The documentation was updated in v1.4.5 to clarify how to define shortcuts using globalShortcut.
     globalShortcut.register('CommandOrControl+A', signalSelectAll)
+    globalShortcut.register('CommandOrControl+X', signalCut)
+    globalShortcut.register('CommandOrControl+C', signalCopy)
+    globalShortcut.register('CommandOrControl+V', signalPaste)
 
     // Emitted when the window is closed.
     win.on('closed', () => {
@@ -91,13 +94,6 @@ const menuTemplate = [
         label: "File",
         submenu: [
             { 
-                label: "Select All",
-                accelerator: "CommandOrControl+A",  // 'accelerator' Deprecated, doesnot work, used globalShortcut in app.ready
-                click () {
-                    signalSelectAll()
-                }
-            },
-            { 
                 label: "Quit",
                 accelerator: "Ctrl+Q",
                 click () {
@@ -109,7 +105,35 @@ const menuTemplate = [
     {
         label: "Edit",
         submenu: [
-            { role: 'reload' }
+            { role: 'reload' },
+            { 
+                label: "Select All",
+                accelerator: "CommandOrControl+A",  // 'accelerator' Deprecated, doesnot work, used globalShortcut in app.ready
+                click () {
+                    signalSelectAll()
+                }
+            },
+            { 
+                label: "Cut",
+                accelerator: "CommandOrControl+X",
+                click () {
+                    signalCut()
+                }
+            },
+            { 
+                label: "Copy",
+                accelerator: "CommandOrControl+C",
+                click () {
+                    signalCopy()
+                }
+            },
+            { 
+                label: "Paste",
+                accelerator: "CommandOrControl+V",
+                click () {
+                    signalPaste()
+                }
+            },
         ]
     },
     {
@@ -131,3 +155,6 @@ function bindIncomingListeners () {
 }
 
 const signalSelectAll = () => sendToView(channel.SELECT_ALL)
+const signalCut = () => sendToView(channel.CUT)
+const signalCopy = () => sendToView(channel.COPY)
+const signalPaste = () => sendToView(channel.PASTE)

@@ -1,4 +1,5 @@
 const path = require('path')
+const shell = require('shelljs')
 
 // NOTE: __dirname represents where index.html is present, which
 // is being pointed to by main.js of electron
@@ -10,6 +11,7 @@ angular.module('fexPloFE', [])
 .controller('mainController', ['$http', '$scope', function($http, $scope){
     let mvm = this;
     let currentUrl = '';    //  will strictly hold current url
+    let cutCopyObj = null // { names: [], fromDir: '', opType: 'CUT' / 'COPY' }
     mvm.url = '';           // this is the model, so might change with input url
     mvm.selectedIndices = [];   // All the selected Items in current view
     mvm.files = [];
@@ -59,7 +61,7 @@ angular.module('fexPloFE', [])
             goBackward()
         }
 
-        console.log(e.keyCode)
+        // console.log(e.keyCode)
     }
 
     init();
@@ -78,6 +80,9 @@ angular.module('fexPloFE', [])
         comm.on(channel.GET_DIR_CONTENT, (e, data) => populate(data))
         comm.on(channel.OPEN_URI, (e, data) => populate(data))
         comm.on(channel.SELECT_ALL, selectAll)
+        comm.on(channel.CUT, cut)
+        comm.on(channel.COPY, copy)
+        comm.on(channel.PASTE, paste)
     }
     
     /**
@@ -103,7 +108,7 @@ angular.module('fexPloFE', [])
     }
 
     function openFileFolderUrl (url) {
-        if(url === currentUrl) return
+        // if(url === currentUrl) return
         comm.send(channel.OPEN_URI, { url })
     }
 
@@ -167,9 +172,9 @@ angular.module('fexPloFE', [])
         e.stopPropagation()
         if(e.keyCode === 13) {
             let newUrl = e.target.value
-            if(newUrl !== currentUrl) {
+            // if(newUrl !== currentUrl) {
                 openFileFolderUrl(newUrl)
-            }
+            // }
         }
     }
 
@@ -268,6 +273,7 @@ angular.module('fexPloFE', [])
 
         if(mvm.files.filter(f => f.name === newName).length > 0) {
             console.log('A file / folder with same name already exists in this directory ...')
+            alert('A file / folder with same name already exists in this directory ...')
             return
         }
 
@@ -293,5 +299,52 @@ angular.module('fexPloFE', [])
         }
     }
 
+    /**
+     * It sets the "cutCopyObj" which is populated during CUT or COPY operation phase
+     * And provide info for the PASTE operation phase
+     * @param {*} opType | 'CUT' or 'COPY'
+     */
+    function setCutCopyObj(opType) {
+        cutCopyObj = {
+            // fromDir: currentUrl,
+            // names: mvm.selectedIndices.map(i => mvm.files[i].name),
+            paths: mvm.selectedIndices.map(i => path.join(currentUrl, mvm.files[i].name)),
+            opType
+        }
+
+        console.log('cutCopyObj', cutCopyObj)
+    }
+
+    function cut () {
+        console.log('Cut Signal Received')
+        if(mvm.selectedIndices.length <= 0) return
+        setCutCopyObj('CUT')
+    }
+
+    function copy () {
+        console.log('Copy Signal Received')
+        if(mvm.selectedIndices.length <= 0) return
+        setCutCopyObj('COPY')
+    }
+
+    function paste () {
+        console.log('Paste Signal Received')
+        if(!cutCopyObj || !cutCopyObj.paths) return
+
+        // DO THE ACTUAL PASTING JOB
+        // console.log('cutCopyObj', cutCopyObj)
+        // console.log('currentUrl = ', currentUrl)
+        let r
+        if(cutCopyObj.opType === 'COPY') {
+            r = shell.cp('-Rf', cutCopyObj.paths, currentUrl)
+        }
+        else if (cutCopyObj.opType === 'CUT') {
+            r = shell.mv(cutCopyObj.paths, currentUrl)
+        }
+
+        // Refresh to see the change
+        console.log(r)
+        openFileFolderUrl(currentUrl)
+    }
     
 }])

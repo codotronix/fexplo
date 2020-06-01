@@ -4,5 +4,8 @@ module.exports = {
     OPEN_FILE: "open-file",
     OPEN_URI: "open-uri",
     RENAME: "rename-file-folder",
-    SELECT_ALL: "select-all-files-folders"
+    SELECT_ALL: "select-all-files-folders",
+    CUT: "cut-selected-items",
+    COPY: "copy-selected-items",
+    PASTE: "paste-selected-items"
 }
