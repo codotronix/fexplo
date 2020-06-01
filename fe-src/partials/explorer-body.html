@@ -1,5 +1,8 @@
 <div class="ffcontainer" 
     ng-click="mvm.clickedOnWhiteArea($event)"
+    ng-keyup="mvm.keyup($event)"
+    ng-keydown="mvm.keydown($event)"
+    tabindex="0"
 >
     <div class="ffbox" 
         ng-repeat="f in mvm.files track by $index"

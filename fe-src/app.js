@@ -47,11 +47,22 @@ angular.module('fexPloFE', [])
     mvm.enterToRename = enterToRename
     mvm.stopPropagation = e => e.stopPropagation()  // A generic stop propagation function
 
-    mvm.keydown = e => isKeyDown[e.keyCode] = true
+    mvm.keydown = e => {
+        e.stopPropagation()
+        e.preventDefault()
+        // if(isTriggeredFromExplorer(e)) {
+        //     isKeyDown[e.keyCode] = true
+        // }
+    }
     mvm.keyup = e => {
-        isKeyDown[e.keyCode] = false
+        e.stopPropagation()
+        e.preventDefault()
+        // console.log(e.target)
+        console.log(e.keyCode)
+        // isKeyDown[e.keyCode] = false
         
         // Is 'ENTER' keyup ?
+        // AND within our explorer body ?
         if(e.keyCode === KEYCODES.ENTER) {
             enterFileFolder()
         }
@@ -61,8 +72,16 @@ angular.module('fexPloFE', [])
             goBackward()
         }
 
+        
+        // If 'Ctrl+A' or Select-All
+        if(e.keyCode === KEYCODES.A && e.ctrlKey) {
+            selectAll()
+        }
+
         // console.log(e.keyCode)
     }
+
+    const isTriggeredFromExplorer = e => e.classList && e.classList.contains('ffcontainer')
 
     init();
 
@@ -227,7 +246,7 @@ angular.module('fexPloFE', [])
 
     function selectAll () {
         mvm.selectedIndices = mvm.files.map((f, i) => i)
-        $scope.$apply()
+        // $scope.$apply()
     }
 
     /**
