@@ -7,5 +7,8 @@ module.exports = {
     UP: 38,
     RIGHT: 39,
     DOWN: 40,
-    A: 65
+    A: 65,
+    C: 67,
+    V: 86,
+    X: 88
 }

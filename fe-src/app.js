@@ -48,18 +48,15 @@ angular.module('fexPloFE', [])
     mvm.stopPropagation = e => e.stopPropagation()  // A generic stop propagation function
 
     mvm.keydown = e => {
-        e.stopPropagation()
-        e.preventDefault()
-        // if(isTriggeredFromExplorer(e)) {
-        //     isKeyDown[e.keyCode] = true
-        // }
+        eStop(e)
+        isKeyDown[e.keyCode] = true
     }
     mvm.keyup = e => {
-        e.stopPropagation()
-        e.preventDefault()
+        eStop(e)
+
         // console.log(e.target)
         console.log(e.keyCode)
-        // isKeyDown[e.keyCode] = false
+        isKeyDown[e.keyCode] = false
         
         // Is 'ENTER' keyup ?
         // AND within our explorer body ?
@@ -71,18 +68,29 @@ angular.module('fexPloFE', [])
         else if(e.keyCode === KEYCODES.BACKSPACE) {
             goBackward()
         }
-
         
         // If 'Ctrl+A' or Select-All
-        if(e.keyCode === KEYCODES.A && e.ctrlKey) {
+        else if(e.keyCode === KEYCODES.A && e.ctrlKey) {
             selectAll()
+        }
+
+        // If 'Ctrl+X' or CUT
+        else if(e.keyCode === KEYCODES.X && e.ctrlKey) {
+            cut()
+        }
+        // If 'Ctrl+C' or COPY
+        else if(e.keyCode === KEYCODES.C && e.ctrlKey) {
+            copy()
+        }
+        // If 'Ctrl+V' or PASTE
+        else if(e.keyCode === KEYCODES.V && e.ctrlKey) {
+            paste()
         }
 
         // console.log(e.keyCode)
     }
 
-    const isTriggeredFromExplorer = e => e.classList && e.classList.contains('ffcontainer')
-
+    const eStop = e => (e.stopPropagation(), e.preventDefault())
     init();
 
     /**
