@@ -126,7 +126,7 @@ body {
     /* transition: all 100ms linear; */
 }
 .ffbox:hover::after,
-.ffbox:focus::after,
+/* .ffbox:focus::after, */
 .ffbox.selected::after {
     width: 100%;
     height: 100%;

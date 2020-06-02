@@ -48,8 +48,8 @@ angular.module('fexPloFE', [])
     mvm.stopPropagation = e => e.stopPropagation()  // A generic stop propagation function
 
     mvm.keydown = e => {
-        if(!Object.values(KEYCODES).includes(e.keyCode)) return
-        eStop(e)
+        // if(!Object.values(KEYCODES).includes(e.keyCode)) return
+        // eStop(e)
         isKeyDown[e.keyCode] = true
     }
     mvm.keyup = e => {
@@ -87,6 +87,10 @@ angular.module('fexPloFE', [])
         // If 'Ctrl+V' or PASTE
         else if(e.keyCode === KEYCODES.V && e.ctrlKey) {
             paste()
+        }
+        // If TAB
+        else if(e.keyCode === KEYCODES.TAB) {
+            detectTabSelectFile()
         }
 
         // console.log(e.keyCode)
@@ -271,33 +275,30 @@ angular.module('fexPloFE', [])
             console.log("WARNING: Multiple Selected... Select 1 and try again ...")
             alert("WARNING: Multiple opening is disbaled. Please select one to open.")
         }
+        else if(mvm.selectedIndices.length === 1) {
+            open(null, mvm.selectedIndices[0])
+        }  
+    }
 
-        // Else, for single
-        // If tabbed focus on a folder that should get priority
-        // Because if later clicked, the that later element will get focus
-        // So focused is the latest one
-
-        else {
-            let el = document.querySelector('.ffbox:focus .name-txt')
-            if(el) {
-                let fileName = el.innerHTML.trim()
-                if(fileName) {
-                    // There should be exactly 1 file/folder with a given name
-                    for(let i = 0; i < mvm.files.length; i++) {
-                        if(mvm.files[i].name === fileName) {
-                            // found !!!
-                            open(null, i)
-                            return
-                        }
+    /**
+     * Check if tabbing has put any file/folder in focus,
+     * If yes, then it should be cuurently the selected one
+     */
+    function detectTabSelectFile () {
+        let el = document.querySelector('.ffbox:focus .name-txt')
+        if(el) {
+            let fileName = el.innerHTML.trim()
+            if(fileName) {
+                // There should be exactly 1 file/folder with a given name
+                for(let i = 0; i < mvm.files.length; i++) {
+                    if(mvm.files[i].name === fileName) {
+                        // found !!!
+                        mvm.selectedIndices = [i]
+                        return
                     }
                 }
             }
         }
-
-        // if(mvm.selectedIndices.length === 1) {
-        //     open(null, mvm.selectedIndices[0])
-        // }
-         
     }
 
     /**
