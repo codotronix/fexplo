@@ -266,13 +266,38 @@ angular.module('fexPloFE', [])
      * and might clog the processor and hang everything
      */
     function enterFileFolder () {
-        if(mvm.selectedIndices.length === 1) {
-            open(null, mvm.selectedIndices[0])
-        }
-        else if (mvm.selectedIndices.length > 1) {
+        // Check if Multiple selected with Ctrl+Click
+        if (mvm.selectedIndices.length > 1) {
             console.log("WARNING: Multiple Selected... Select 1 and try again ...")
             alert("WARNING: Multiple opening is disbaled. Please select one to open.")
         }
+
+        // Else, for single
+        // If tabbed focus on a folder that should get priority
+        // Because if later clicked, the that later element will get focus
+        // So focused is the latest one
+
+        else {
+            let el = document.querySelector('.ffbox:focus .name-txt')
+            if(el) {
+                let fileName = el.innerHTML.trim()
+                if(fileName) {
+                    // There should be exactly 1 file/folder with a given name
+                    for(let i = 0; i < mvm.files.length; i++) {
+                        if(mvm.files[i].name === fileName) {
+                            // found !!!
+                            open(null, i)
+                            return
+                        }
+                    }
+                }
+            }
+        }
+
+        // if(mvm.selectedIndices.length === 1) {
+        //     open(null, mvm.selectedIndices[0])
+        // }
+         
     }
 
     /**
