@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/codotronix/fexplo#readme",
   "devDependencies": {
-    "electron": "^7.1.9",
+    "electron": "^13.6.6",
     "nodemon": "^2.0.4"
   },
   "dependencies": {
